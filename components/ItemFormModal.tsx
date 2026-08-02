@@ -72,7 +72,7 @@ export function ItemFormModal({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="mb-4 text-lg font-semibold">
-          {initialValues ? `Edit ${schema.title.slice(0, -1) || schema.title}` : `Add to ${schema.title}`}
+          {initialValues ? `Edit ${schema.itemLabel}` : `Add ${schema.itemLabel}`}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-3">
           {schema.fields.map((field) => (

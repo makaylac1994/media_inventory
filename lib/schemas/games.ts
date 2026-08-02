@@ -4,7 +4,8 @@ import { createElement } from "react";
 export const gamesSchema: TabSchema = {
   table: "game_items",
   title: "Games",
-  singular: "title",
+  itemLabel: "Game",
+  titleField: "title",
   columns: [
     { key: "title", label: "Title", sortable: true },
     { key: "category", label: "Category", sortable: true },

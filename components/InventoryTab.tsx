@@ -81,7 +81,7 @@ export function InventoryTab({ schema }: { schema: TabSchema }) {
   }
 
   async function handleDelete(row: ItemRecord) {
-    const label = row[schema.singular] || "this item";
+    const label = row[schema.titleField] || "this item";
     if (!window.confirm(`Delete "${label}"? This can't be undone.`)) return;
     const { error } = await supabase.from(schema.table).delete().eq("id", row.id);
     if (error) {

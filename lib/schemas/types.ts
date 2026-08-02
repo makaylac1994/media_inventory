@@ -26,7 +26,8 @@ export interface ColumnConfig {
 export interface TabSchema {
   table: string;
   title: string;
-  singular: string;
+  itemLabel: string;
+  titleField: string;
   columns: ColumnConfig[];
   fields: FieldConfig[];
   autocompleteFields: string[];

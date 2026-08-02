@@ -3,7 +3,8 @@ import { TabSchema } from "./types";
 export const mediaSchema: TabSchema = {
   table: "media_items",
   title: "Media",
-  singular: "title",
+  itemLabel: "Media Item",
+  titleField: "title",
   columns: [
     { key: "title", label: "Title", sortable: true },
     {

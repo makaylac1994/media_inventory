@@ -3,7 +3,8 @@ import { TabSchema } from "./types";
 export const booksSchema: TabSchema = {
   table: "book_items",
   title: "Books",
-  singular: "title",
+  itemLabel: "Book",
+  titleField: "title",
   columns: [
     { key: "title", label: "Title", sortable: true },
     { key: "author", label: "Author", sortable: true },
