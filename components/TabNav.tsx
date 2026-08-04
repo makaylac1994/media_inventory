@@ -8,6 +8,7 @@ const tabs = [
   { href: "/media", label: "Media" },
   { href: "/games", label: "Games" },
   { href: "/books", label: "Books" },
+  { href: "/settings", label: "Settings" },
 ];
 
 export function TabNav() {

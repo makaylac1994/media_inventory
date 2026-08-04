@@ -1,4 +1,4 @@
-import { TabSchema } from "./types";
+import { coverColumn, TabSchema } from "./types";
 import { createElement } from "react";
 
 export const gamesSchema: TabSchema = {
@@ -7,6 +7,7 @@ export const gamesSchema: TabSchema = {
   itemLabel: "Game",
   titleField: "title",
   columns: [
+    coverColumn(),
     { key: "title", label: "Title", sortable: true },
     { key: "category", label: "Category", sortable: true },
     { key: "age_rating", label: "Age Rating", sortable: true },
@@ -31,11 +32,12 @@ export const gamesSchema: TabSchema = {
   ],
   fields: [
     { key: "title", label: "Title", type: "text", required: true },
-    { key: "category", label: "Category", type: "autocomplete" },
+    { key: "category", label: "Category", type: "managed-select" },
     { key: "age_rating", label: "Age Rating", type: "autocomplete" },
     { key: "instructions_url", label: "Instructions Link", type: "url" },
     { key: "notes", label: "Notes", type: "textarea" },
   ],
-  autocompleteFields: ["category", "age_rating"],
+  autocompleteFields: ["age_rating"],
+  managedFields: ["category"],
   defaultSort: { key: "title", direction: "asc" },
 };

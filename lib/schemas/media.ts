@@ -1,4 +1,4 @@
-import { TabSchema } from "./types";
+import { coverColumn, TabSchema } from "./types";
 
 export const mediaSchema: TabSchema = {
   table: "media_items",
@@ -6,6 +6,7 @@ export const mediaSchema: TabSchema = {
   itemLabel: "Media Item",
   titleField: "title",
   columns: [
+    coverColumn(),
     { key: "title", label: "Title", sortable: true },
     {
       key: "media_type",
@@ -14,7 +15,7 @@ export const mediaSchema: TabSchema = {
       render: (row) =>
         row.media_type === "movie" ? "Movie" : row.media_type === "tv" ? "TV" : "",
     },
-    { key: "release_date", label: "Date", sortable: true },
+    { key: "release_year", label: "Year", sortable: true },
     { key: "age_rating", label: "Age Rating", sortable: true },
     { key: "category", label: "Category", sortable: true },
   ],
@@ -29,11 +30,12 @@ export const mediaSchema: TabSchema = {
         { value: "tv", label: "TV" },
       ],
     },
-    { key: "release_date", label: "Date", type: "date" },
-    { key: "age_rating", label: "Age Rating", type: "autocomplete" },
-    { key: "category", label: "Category", type: "autocomplete" },
+    { key: "release_year", label: "Year", type: "year" },
+    { key: "age_rating", label: "Age Rating", type: "managed-select" },
+    { key: "category", label: "Category", type: "managed-select" },
     { key: "notes", label: "Notes", type: "textarea" },
   ],
-  autocompleteFields: ["age_rating", "category"],
+  autocompleteFields: [],
+  managedFields: ["age_rating", "category"],
   defaultSort: { key: "title", direction: "asc" },
 };

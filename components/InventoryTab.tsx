@@ -16,6 +16,7 @@ export function InventoryTab({ schema }: { schema: TabSchema }) {
   const [sortDirection, setSortDirection] = useState(schema.defaultSort.direction);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingRow, setEditingRow] = useState<ItemRecord | null>(null);
+  const [managedOptions, setManagedOptions] = useState<Record<string, string[]>>({});
 
   async function loadRows() {
     const { data, error } = await supabase.from(schema.table).select("*");
@@ -28,9 +29,27 @@ export function InventoryTab({ schema }: { schema: TabSchema }) {
     setLoading(false);
   }
 
+  async function loadManagedOptions() {
+    if (schema.managedFields.length === 0) return;
+    const { data, error } = await supabase
+      .from("field_options")
+      .select("field_key, value")
+      .eq("tab", schema.table)
+      .in("field_key", schema.managedFields)
+      .order("value");
+    if (error || !data) return;
+    const grouped: Record<string, string[]> = {};
+    for (const field of schema.managedFields) grouped[field] = [];
+    for (const row of data as { field_key: string; value: string }[]) {
+      (grouped[row.field_key] ??= []).push(row.value);
+    }
+    setManagedOptions(grouped);
+  }
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- fetch-on-mount is intentional here
     loadRows();
+    loadManagedOptions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema.table]);
 
@@ -143,6 +162,7 @@ export function InventoryTab({ schema }: { schema: TabSchema }) {
           schema={schema}
           initialValues={editingRow}
           autocompleteOptions={autocompleteOptions}
+          managedOptions={managedOptions}
           onClose={() => {
             setModalOpen(false);
             setEditingRow(null);

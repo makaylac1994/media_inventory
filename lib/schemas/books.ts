@@ -1,4 +1,4 @@
-import { TabSchema } from "./types";
+import { coverColumn, TabSchema } from "./types";
 
 export const booksSchema: TabSchema = {
   table: "book_items",
@@ -6,6 +6,7 @@ export const booksSchema: TabSchema = {
   itemLabel: "Book",
   titleField: "title",
   columns: [
+    coverColumn(),
     { key: "title", label: "Title", sortable: true },
     { key: "author", label: "Author", sortable: true },
     { key: "category", label: "Category", sortable: true },
@@ -14,10 +15,11 @@ export const booksSchema: TabSchema = {
   fields: [
     { key: "title", label: "Title", type: "text", required: true },
     { key: "author", label: "Author", type: "text" },
-    { key: "category", label: "Category", type: "autocomplete" },
+    { key: "category", label: "Category", type: "managed-select" },
     { key: "age_rating", label: "Age Rating", type: "autocomplete" },
     { key: "notes", label: "Notes", type: "textarea" },
   ],
-  autocompleteFields: ["category", "age_rating"],
+  autocompleteFields: ["age_rating"],
+  managedFields: ["category"],
   defaultSort: { key: "title", direction: "asc" },
 };
